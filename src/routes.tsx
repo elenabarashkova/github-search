@@ -4,7 +4,7 @@ import React from 'react';
 
 export const ROUTES = [
   {
-    path: 'search-results',
+    path: '/',
     Element: <SearchResults />,
     title: 'Search Results'
   },

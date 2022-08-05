@@ -6,12 +6,15 @@ import {
 import { ROUTES } from '../../routes';
 import styles from './style.module.css';
 
+//todo: fix initial route situation : either leave / as search results or addinitial redirectfrom / to search-results
+
 export const Layout: React.FC = () => (
   <>
     <header>
       <nav>
-        {ROUTES.map(({path, title}) => (
+        {ROUTES.map(({path, title}, index) => (
           <NavLink
+            key={`nav-link-${index}`}
             to={path}
             className={({ isActive }) => isActive ? styles.active : '' }
           >
