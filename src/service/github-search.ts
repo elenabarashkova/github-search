@@ -8,9 +8,9 @@ const HEADERS = {
   }
 }
 
-export const getUsers = async (query: string, signal:  {signal: AbortSignal}): Promise<Array<any>> => {
+export const getUsers = async (query: string, page: number, signal:  {signal: AbortSignal}): Promise<Array<any>> => {
   while (true) {
-    const response = await fetch(`https://api.github.com/search/users?q=${query}&per_page=6`, {
+    const response = await fetch(`https://api.github.com/search/users?q=${query}&per_page=6&page=${page}`, {
       ...signal,
       ...HEADERS
     });

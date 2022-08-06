@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import styles from './style.module.css';
-import { getUserRepos } from '../../../service/github-search';
+import { ReposList } from '../ReposList';
 
 interface IResultItem {
   imgUrl: string,
@@ -8,71 +8,18 @@ interface IResultItem {
   url: string
 }
 
-export const ResultItem: React.FC<IResultItem> = ({ imgUrl, login, url}) => {
-  const [reposList, setReposList] = useState<Array<any>>([]);
-  const [isPending, setIsPending] = useState(true);
-
-  const fetchRepos = useCallback(async (login: string, signal: AbortSignal) => {
-    try {
-      const response = await getUserRepos(login, { signal });
-      setReposList(response);
-      setIsPending(false);
-    } catch (e) {
-      //todo: resolve errors - e.g. stop spinner & show error message
-      console.log('Error', e);
-    }
-  }, [])
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-
-    fetchRepos(login, signal);
-
-
-    return () => {
-      abortController.abort();
-    };
-  }, [login, fetchRepos]);
-
-  //todo: eject repos in new component
-  console.log('!!!!', isPending);
-
-  return (
-    <div className={styles.resultItem}>
-      <div className={styles.imgContainer}>
-        <img src={imgUrl} alt={login} />
-      </div>
-      <div>
-        <a href={url} target="_blank" rel="noopener noreferrer">{login}</a>
-      </div>
-      <div>
-        <h5>Repos Info</h5>
-        {isPending ?
-          <div>Pending </div> :
-          reposList.length ?
-            reposList.slice(0, 3).map(({name, description, language, watchers, forks }: any, index) => (
-              <div key={`repo-${index}`} className={styles.repository}>
-                <div>{name}</div>
-                <div>{description}</div>
-                <div>
-                  <span>Language:</span>
-                  <span>{language}</span>
-                  <span>Watchers:</span>
-                  <span>{watchers}</span>
-                  <span>Forks:</span>
-                  <span>{forks}</span>
-                </div>
-              </div>
-            )) :
-            <div>No repositories</div>
-        }
-        {reposList.length > 3 ?
-          <a href={`https://api.github.com/users/${login}/repos`} target="_blank" rel="noopener noreferrer">See all repos</a>
-          :
-          null
-        }
-      </div>
+export const ResultItem: React.FC<IResultItem> = ({
+  imgUrl,
+  login,
+  url
+}) => (
+  <div className={styles.resultItem}>
+    <div className={styles.imgContainer}>
+      <img src={imgUrl} alt={login} />
     </div>
-  )
-}
+    <div>
+      <a href={url} target="_blank" rel="noopener noreferrer">{login}</a>
+    </div>
+    <ReposList login={login} />
+  </div>
+)
