@@ -22,7 +22,6 @@ export const SearchResults: React.FC = () => {
   const fetchUsers = useCallback(async (query: string) => {
     // todo: fix limit errors (get 403)
     // todo: add abort fetch on new search
-    // todo invoke search on reload page with search params
     // todo: fix multiple invoke
     // todo: add endless scroll & additional params in request
     try {

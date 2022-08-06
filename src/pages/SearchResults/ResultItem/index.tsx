@@ -33,8 +33,8 @@ export const ResultItem: React.FC<IResultItem> = ({ imgUrl, login, url}) => {
       <div>
         <h5>Repos Info</h5>
         {
-          reposList.slice(0, 3).map(({name, description, language, watchers, forks }: any) => (
-            <div className={styles.repository}>
+          reposList.slice(0, 3).map(({name, description, language, watchers, forks }: any, index) => (
+            <div key={`repo-${index}`} className={styles.repository}>
               <div>{name}</div>
               <div>{description}</div>
               <div>
