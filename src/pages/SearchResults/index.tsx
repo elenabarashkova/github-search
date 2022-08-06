@@ -10,6 +10,7 @@ export const SearchResults: React.FC = () => {
   const [isPending, setIsPending] = useState(false);
   const [usersList, setUsersList] = useState<Array<any>>([]);
   const [usersCount, setUsersCount] = useState(0);
+  const [isError, setIsError] = useState(false);
 
   const handleSearchChange = useCallback((value: string) => {
     const newSearchParams = {
@@ -35,12 +36,12 @@ export const SearchResults: React.FC = () => {
       setIsPending(true);
       setUsersList([]);
       const {total_count, items} = await getUsers(query, currentUsersPage, { signal });
+      setIsError(false);
       setUsersList(items);
       setUsersCount(total_count);
       setIsPending(false);
     } catch (e) {
-      //todo: resolve errors - e.g. stop spinner & show error message
-      console.log('Error', e);
+      setIsError(true);
     }
   }, []);
 
@@ -70,9 +71,9 @@ export const SearchResults: React.FC = () => {
           <div>Total results: {usersCount}</div>
           {isPending ?
             <div>PENDING</div> :
-            <>
+            isError ?
+              <div>Sorry, something went wrong. Please, try your search again.</div> :
               <ResultsList users={usersList} />
-            </>
           }
           <button disabled={searchParams.get(PAGE_QUERY) === '1'} onClick={() => handlePageChange(-1)}>PREV</button>
           <button disabled={searchParams.get(PAGE_QUERY) === pagesQuantity} onClick={() => handlePageChange(1)}>NEXT</button>
