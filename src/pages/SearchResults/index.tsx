@@ -16,19 +16,19 @@ export const SearchResults: React.FC = () => {
     };
     const newSearchParam = value.length === 0 ? {} : searchParam;
     setSearchParams(newSearchParam);
-    // setIsPending(true);
   }, [setSearchParams]);
 
-  const fetchUsers = useCallback(async (query: string) => {
+  const fetchUsers = useCallback(async (query: string, signal: AbortSignal) => {
     // todo: fix limit errors (get 403) - mostly fixed - check again for endless scroll
-    // todo: add abort fetch on new search
+
     // todo: fix multiple invoke
     // todo: add endless scroll & additional params in request
-    // todo: add debounce fn https://stackoverflow.com/questions/54301090/how-to-delay-start-debounce-fetching-data-until-user-stops-typing
+
     try {
       setIsPending(true);
-      const response = await getUsers(query);
-      setUsersList(response)
+      const response = await getUsers(query, { signal });
+      setUsersList(response);
+      setIsPending(false);
     } catch (e) {
       //todo: resolve errors - e.g. stop spinner & show error message
       console.log('Error', e);
@@ -36,11 +36,18 @@ export const SearchResults: React.FC = () => {
   }, [])
 
   useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     const searchQuery = searchParams.get(SEARCH_QUERY);
+
     if (searchQuery) {
-      fetchUsers(searchQuery);
-      setIsPending(false);
+      fetchUsers(searchQuery, signal);
     }
+
+    return () => {
+      abortController.abort();
+    };
   }, [searchParams, fetchUsers]);
 
   return (

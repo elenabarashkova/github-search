@@ -9,12 +9,12 @@ interface IResultItem {
 }
 
 export const ResultItem: React.FC<IResultItem> = ({ imgUrl, login, url}) => {
-  const [reposList, setReposList] = useState([]);
+  const [reposList, setReposList] = useState<Array<any>>([]);
   const [isPending, setIsPending] = useState(true);
 
-  const fetchRepos = useCallback(async (login: string) => {
+  const fetchRepos = useCallback(async (login: string, signal: AbortSignal) => {
     try {
-      const response = await getUserRepos(login);
+      const response = await getUserRepos(login, { signal });
       setReposList(response);
       setIsPending(false);
     } catch (e) {
@@ -24,8 +24,20 @@ export const ResultItem: React.FC<IResultItem> = ({ imgUrl, login, url}) => {
   }, [])
 
   useEffect(() => {
-    fetchRepos(login);
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    fetchRepos(login, signal);
+
+
+    return () => {
+      abortController.abort();
+    };
   }, [login, fetchRepos]);
+
+  //todo: eject repos in new component
+  console.log('!!!!', isPending);
+
   return (
     <div className={styles.resultItem}>
       <div className={styles.imgContainer}>
@@ -36,9 +48,9 @@ export const ResultItem: React.FC<IResultItem> = ({ imgUrl, login, url}) => {
       </div>
       <div>
         <h5>Repos Info</h5>
-        {
-          isPending ?
-            <div>Pending </div> :
+        {isPending ?
+          <div>Pending </div> :
+          reposList.length ?
             reposList.slice(0, 3).map(({name, description, language, watchers, forks }: any, index) => (
               <div key={`repo-${index}`} className={styles.repository}>
                 <div>{name}</div>
@@ -52,10 +64,13 @@ export const ResultItem: React.FC<IResultItem> = ({ imgUrl, login, url}) => {
                   <span>{forks}</span>
                 </div>
               </div>
-            ))
+            )) :
+            <div>No repositories</div>
         }
-        {reposList.length > 3 ??
+        {reposList.length > 3 ?
           <a href={`https://api.github.com/users/${login}/repos`} target="_blank" rel="noopener noreferrer">See all repos</a>
+          :
+          null
         }
       </div>
     </div>
