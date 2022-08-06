@@ -1,14 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Search } from './Search';
 import { useSearchParams } from 'react-router-dom';
 import { PAGE_QUERY, SEARCH_QUERY } from '../../constants';
 import { ResultsList } from './ResultsList';
-import { getUsers } from '../../service/github-search';
+import { getUsers, QUANTITY_PER_PAGE } from '../../service/github-search';
 
 export const SearchResults: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isPending, setIsPending] = useState(false);
   const [usersList, setUsersList] = useState<Array<any>>([]);
+  const [usersCount, setUsersCount] = useState(0);
 
   const handleSearchChange = useCallback((value: string) => {
     const newSearchParams = {
@@ -33,8 +34,9 @@ export const SearchResults: React.FC = () => {
     try {
       setIsPending(true);
       setUsersList([]);
-      const response = await getUsers(query, currentUsersPage, { signal });
-      setUsersList(response);
+      const {total_count, items} = await getUsers(query, currentUsersPage, { signal });
+      setUsersList(items);
+      setUsersCount(total_count);
       setIsPending(false);
     } catch (e) {
       //todo: resolve errors - e.g. stop spinner & show error message
@@ -56,22 +58,24 @@ export const SearchResults: React.FC = () => {
       abortController.abort();
     };
   }, [searchParams, fetchUsers]);
-//todo: add dasables prop for next bnt && for it need to recieve total number of items
+
+  const pagesQuantity = useMemo(() => `${Math.ceil(usersCount / QUANTITY_PER_PAGE)}`, [usersCount]);
+
   return (
     <>
       <Search onChange={handleSearchChange} value={searchParams.get(SEARCH_QUERY)} />
       { !!searchParams.get(SEARCH_QUERY) &&
         <div>
-          List container
-          {isPending && !usersList.length ?
+          <div>List container</div>
+          <div>Total results: {usersCount}</div>
+          {isPending ?
             <div>PENDING</div> :
             <>
               <ResultsList users={usersList} />
-              {isPending && <div>Mini pending</div> }
             </>
           }
           <button disabled={searchParams.get(PAGE_QUERY) === '1'} onClick={() => handlePageChange(-1)}>PREV</button>
-          <button onClick={() => handlePageChange(1)}>NEXT</button>
+          <button disabled={searchParams.get(PAGE_QUERY) === pagesQuantity} onClick={() => handlePageChange(1)}>NEXT</button>
         </div>
       }
     </>
