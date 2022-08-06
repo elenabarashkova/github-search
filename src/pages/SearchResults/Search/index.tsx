@@ -1,4 +1,5 @@
 import React, { ChangeEventHandler } from 'react';
+import styles from './style.module.css';
 
 interface ISearch {
   onChange: ChangeEventHandler<HTMLInputElement>,
@@ -6,8 +7,8 @@ interface ISearch {
 }
 
 export const Search: React.FC<ISearch> = ({ onChange, value}) => (
-  <div>
-    <label htmlFor="search">Start searching:</label>
+  <div className={styles.search}>
+    <label htmlFor="search">Start typing:</label>
     <input
       type="search"
       id='search'

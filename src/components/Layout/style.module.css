@@ -1,3 +1,19 @@
-.active {
-  color: green;
+.navigation {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 20px;
+}
+
+a.active {
+  color: #177391;
+  border-bottom: 1px solid;
+  pointer-events: none;
+}
+
+.content {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

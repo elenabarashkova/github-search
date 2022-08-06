@@ -9,7 +9,7 @@ import styles from './style.module.css';
 export const Layout: React.FC = () => (
   <>
     <header>
-      <nav>
+      <nav className={`${styles.navigation} container`}>
         {ROUTES.map(({path, title}, index) => (
           <NavLink
             key={`nav-link-${index}`}
@@ -21,7 +21,7 @@ export const Layout: React.FC = () => (
         ))}
       </nav>
     </header>
-    <main className="content">
+    <main className={`${styles.content} container`}>
       <Outlet />
     </main>
   </>

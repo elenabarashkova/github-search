@@ -4,6 +4,8 @@ import { useSearchParams } from 'react-router-dom';
 import { PAGE_QUERY, SEARCH_QUERY, INITIAL_PAGE_NUM } from '../../constants';
 import { ResultsList } from './ResultsList';
 import { getUsers, QUANTITY_PER_PAGE } from '../../service';
+import { Spinner } from '../../components/Spinner';
+import styles from './style.module.css';
 
 export const SearchResults: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -63,19 +65,21 @@ export const SearchResults: React.FC = () => {
 
   return (
     <>
+      <h1>Find accounts on GitHub</h1>
       <Search onChange={handleSearchChange} value={searchParams.get(SEARCH_QUERY)} />
       { !!searchParams.get(SEARCH_QUERY) &&
-        (<div>
-          <div>List container</div>
-          <div>Total results: {usersCount}</div>
+        (<div className={styles.resultsSection}>
+          <h3>Total results: {usersCount}</h3>
           {isPending ?
-            <div>PENDING</div> :
+            <Spinner /> :
             isError ?
               <div>Sorry, something went wrong. Please, try your search again.</div> :
               <ResultsList users={usersList} />
           }
-          <button disabled={searchParams.get(PAGE_QUERY) === INITIAL_PAGE_NUM} onClick={() => handlePageChange(-1)}>PREV</button>
-          <button disabled={searchParams.get(PAGE_QUERY) === pagesQuantity} onClick={() => handlePageChange(1)}>NEXT</button>
+          <div className={styles.paginationButtons}>
+            <button disabled={searchParams.get(PAGE_QUERY) === INITIAL_PAGE_NUM} onClick={() => handlePageChange(-1)}>&#9664;</button>
+            <button disabled={searchParams.get(PAGE_QUERY) === pagesQuantity} onClick={() => handlePageChange(1)}>&#9654;</button>
+          </div>
         </div>)
       }
     </>

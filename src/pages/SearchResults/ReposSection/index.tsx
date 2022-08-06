@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { getUserRepos } from '../../../service';
 import { ReposList } from '../ReposList';
 import { VISIBLE_REPOS_QUANTITY } from '../../../constants';
+import styles from './style.module.css';
 
 interface IReposSection {
   login: string,
@@ -34,8 +35,8 @@ export const ReposSection: React.FC<IReposSection> = ({ login, }) => {
   }, [login, fetchRepos]);
 
   return (
-    <div>
-      <h5>Repos Info</h5>
+    <div className={styles.reposSection}>
+      <h3>Repositories:</h3>
       {isPending ?
         <div>Pending</div> :
         isError ?
@@ -43,12 +44,12 @@ export const ReposSection: React.FC<IReposSection> = ({ login, }) => {
           <ReposList reposList={reposList.slice(0, VISIBLE_REPOS_QUANTITY)} />
       }
       {reposList.length > VISIBLE_REPOS_QUANTITY &&
-        <a
-          href={`https://api.github.com/users/${login}/repos`}
-          target="_blank"
-          rel="noopener noreferrer">
+        <div
+          className={`link ${styles.allReposLink}`}
+          onClick={() => window.open(`https://github.com/${login}?tab=repositories`, '_blank')}
+        >
           See all repos
-        </a>
+        </div>
       }
     </div>
   )

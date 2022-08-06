@@ -13,13 +13,11 @@ export const ResultItem: React.FC<IResultItem> = ({
   login,
   url
 }) => (
-  <div className={styles.resultItem}>
+  <a href={url} target="_blank" rel="noopener noreferrer" className={styles.resultItem}>
     <div className={styles.imgContainer}>
       <img src={imgUrl} alt={login} />
     </div>
-    <div>
-      <a href={url} target="_blank" rel="noopener noreferrer">{login}</a>
-    </div>
+    <h3 className={styles.name}><span>{login}</span></h3>
     <ReposSection login={login} />
-  </div>
+  </a>
 )

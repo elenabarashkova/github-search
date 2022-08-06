@@ -5,9 +5,42 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #333;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h3 {
+  font-weight: 300;
+}
+
+a,
+.link {
+  text-decoration: none;
+  font-size: 16px;
+  color: #3a8aab;
+}
+
+a:hover,
+a:focus,
+.link:hover,
+.link:focus {
+  color: #6db5d2;
+}
+
+header {
+  height: 50px;
+  border-bottom: 1px solid lightgray;
+}
+
+.container {
+  margin: 0 20px;
 }
