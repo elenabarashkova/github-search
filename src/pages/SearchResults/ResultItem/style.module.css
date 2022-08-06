@@ -1,0 +1,21 @@
+.resultItem {
+  width: 25%;
+  height: 450px;
+  padding: 10px;
+}
+
+.imgContainer {
+  width: 80%;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.repository {
+  border: 1px solid;
+}
