@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './style.module.css';
-import { ReposList } from '../ReposList';
+import { ReposSection } from '../ReposSection';
 
 interface IResultItem {
   imgUrl: string,
@@ -20,6 +20,6 @@ export const ResultItem: React.FC<IResultItem> = ({
     <div>
       <a href={url} target="_blank" rel="noopener noreferrer">{login}</a>
     </div>
-    <ReposList login={login} />
+    <ReposSection login={login} />
   </div>
 )
