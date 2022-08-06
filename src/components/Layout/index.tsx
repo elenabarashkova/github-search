@@ -6,8 +6,6 @@ import {
 import { ROUTES } from '../../routes';
 import styles from './style.module.css';
 
-//todo: fix initial route situation : either leave / as search results or addinitial redirectfrom / to search-results
-
 export const Layout: React.FC = () => (
   <>
     <header>
