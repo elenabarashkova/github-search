@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserCard } from '../UserCard';
 import styles from './style.module.css';
-import { User } from '../../../interfaces';
+import { User } from '../../../../interfaces';
 
 interface IUsersList {
   users: Array<User>

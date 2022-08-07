@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getUserRepos } from '../../../service';
+import { getUserRepos } from '../../../../service';
 import { ReposList } from '../ReposList';
-import { VISIBLE_REPOS_QUANTITY } from '../constants';
+import { VISIBLE_REPOS_QUANTITY } from '../../constants';
 import styles from './style.module.css';
-import { Repository } from '../../../interfaces';
+import { Repository } from '../../../../interfaces';
 
 interface IReposSection {
   login: string,

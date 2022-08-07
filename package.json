@@ -2,7 +2,6 @@
   "name": "github-search",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://elenabarashkova.github.io/github-search",
   "dependencies": {
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
@@ -17,9 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -37,8 +34,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^4.0.0"
   }
 }

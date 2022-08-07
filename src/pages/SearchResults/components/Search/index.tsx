@@ -1,8 +1,8 @@
-import React, { ChangeEventHandler } from 'react';
+import React from 'react';
 import styles from './style.module.css';
 
 interface ISearch {
-  onChange: ChangeEventHandler<HTMLInputElement>,
+  onChange: CallableFunction,
   value: string | null
 }
 
@@ -12,7 +12,7 @@ export const Search: React.FC<ISearch> = ({ onChange, value}) => (
     <input
       type="search"
       id='search'
-      onChange={onChange}
+      onChange={({target}) => onChange(target.value)}
       placeholder='Search here'
       value={value ?? ''}
       maxLength={200}

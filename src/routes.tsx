@@ -4,12 +4,12 @@ import React from 'react';
 
 export const ROUTES = [
   {
-    path: 'github-search/',
+    path: '/',
     Element: <SearchResults />,
     title: 'Search Results'
   },
   {
-    path: 'github-search/about',
+    path: '/about',
     Element: <About />,
     title: 'About application'
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './style.module.css';
 import { ReposSection } from '../ReposSection';
-import { User } from '../../../interfaces';
+import { User } from '../../../../interfaces';
 
 export const UserCard: React.FC<User> = ({
   avatar_url,

@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
-import { Search } from './Search';
+import { Search } from './components/Search';
 import { useSearchParams } from 'react-router-dom';
 import { PAGE_QUERY, SEARCH_QUERY, INITIAL_PAGE_NUM } from './constants';
-import { UsersList } from './UsersList';
+import { UsersList } from './components/UsersList';
 import { getUsers, QUANTITY_PER_PAGE } from '../../service';
 import { Spinner } from '../../components/Spinner';
 import styles from './style.module.css';
-import { PaginationButtons } from './PaginationButtons';
+import { PaginationButtons } from './components/PaginationButtons';
 import { User } from '../../interfaces';
 
 export const SearchResults: React.FC = () => {
@@ -16,12 +16,12 @@ export const SearchResults: React.FC = () => {
   const [usersCount, setUsersCount] = useState(0);
   const [isError, setIsError] = useState(false);
 
-  const handleSearchChange = useCallback(({ target }: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = useCallback((value: string) => {
     const newSearchParams = {
-      [SEARCH_QUERY]: target.value,
+      [SEARCH_QUERY]: value,
       [PAGE_QUERY]: INITIAL_PAGE_NUM
     };
-    setSearchParams(!target.value.length ? {} : newSearchParams);
+    setSearchParams(!value.length ? {} : newSearchParams);
   }, [setSearchParams]);
 
   const handlePageChange = useCallback((modifier: number) => {
@@ -64,7 +64,10 @@ export const SearchResults: React.FC = () => {
     };
   }, [searchParams, fetchUsers]);
 
-  const pagesQuantity = useMemo(() => `${Math.ceil(usersCount / QUANTITY_PER_PAGE)}`, [usersCount]);
+  const isLastPageCurrent = useMemo(() => {
+    const pagesQuantity = `${Math.ceil(usersCount / QUANTITY_PER_PAGE)}`;
+    return searchParams.get(PAGE_QUERY) === pagesQuantity || pagesQuantity === '0';
+  }, [usersCount, searchParams]);
 
   return (
     <>
@@ -80,9 +83,9 @@ export const SearchResults: React.FC = () => {
               <UsersList users={usersList} />
           }
           <PaginationButtons
-            onClick={handlePageChange}
+            onPageChange={handlePageChange}
             isFirstPageCurrent={searchParams.get(PAGE_QUERY) === INITIAL_PAGE_NUM}
-            isLastPageCurrent={searchParams.get(PAGE_QUERY) === pagesQuantity || pagesQuantity === '0'} />
+            isLastPageCurrent={isLastPageCurrent} />
         </div>)
       }
     </>
