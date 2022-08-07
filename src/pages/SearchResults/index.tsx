@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Search } from './components/Search';
 import { useSearchParams } from 'react-router-dom';
-import { PAGE_QUERY, SEARCH_QUERY, INITIAL_PAGE_NUM } from './constants';
+import { PAGE_QUERY, SEARCH_QUERY, INITIAL_PAGE_NUM, ABORT_ERROR_CODE } from './constants';
 import { UsersList } from './components/UsersList';
 import { getUsers, QUANTITY_PER_PAGE } from '../../service';
 import { Spinner } from '../../components/Spinner';
@@ -44,8 +44,10 @@ export const SearchResults: React.FC = () => {
       setUsersCount(total_count);
       setIsPending(false);
     } catch (e) {
-      setIsError(true);
-      setIsPending(false);
+      if ((e as DOMException).code !== ABORT_ERROR_CODE) {
+        setIsError(true);
+        setIsPending(false);
+      }
     }
   }, []);
 

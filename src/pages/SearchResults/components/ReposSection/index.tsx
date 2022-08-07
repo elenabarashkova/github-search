@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { getUserRepos } from '../../../../service';
 import { ReposList } from '../ReposList';
-import { VISIBLE_REPOS_QUANTITY } from '../../constants';
+import { ABORT_ERROR_CODE, VISIBLE_REPOS_QUANTITY } from '../../constants';
 import styles from './style.module.css';
 import { Repository } from '../../../../interfaces';
+import { Spinner } from '../../../../components/Spinner';
 
 interface IReposSection {
   login: string,
@@ -20,9 +21,11 @@ export const ReposSection: React.FC<IReposSection> = ({ login, }) => {
       setIsError(false);
       setReposList(response);
       setIsPending(false);
-    } catch (e) {
-      setIsError(true);
-      setIsPending(false);
+    } catch (e: unknown) {
+      if ((e as DOMException).code !== ABORT_ERROR_CODE) {
+        setIsError(true);
+        setIsPending(false);
+      }
     }
   }, [])
 
@@ -36,11 +39,13 @@ export const ReposSection: React.FC<IReposSection> = ({ login, }) => {
     };
   }, [login, fetchRepos]);
 
+  console.log('!!', isPending);
+
   return (
     <div className={styles.reposSection}>
       <h3>Repositories:</h3>
       {isPending ?
-        <div>Pending</div> :
+        <Spinner /> :
         isError ?
           <div>Sorry, something went wrong.</div> :
           <ReposList reposList={reposList.slice(0, VISIBLE_REPOS_QUANTITY)} />
