@@ -76,9 +76,19 @@ export const SearchResults: React.FC = () => {
               <div>Sorry, something went wrong. Please, try your search again.</div> :
               <ResultsList users={usersList} />
           }
-          <div className={styles.paginationButtons}>
-            <button disabled={searchParams.get(PAGE_QUERY) === INITIAL_PAGE_NUM} onClick={() => handlePageChange(-1)}>&#9664;</button>
-            <button disabled={searchParams.get(PAGE_QUERY) === pagesQuantity} onClick={() => handlePageChange(1)}>&#9654;</button>
+          <div className={styles.paginationButtonsWrap}>
+            <button
+              className={`button ${styles.paginationButton}`}
+              disabled={searchParams.get(PAGE_QUERY) === INITIAL_PAGE_NUM}
+              onClick={() => handlePageChange(-1)}>
+              &#9664;
+            </button>
+            <button
+              className={`button ${styles.paginationButton}`}
+              disabled={searchParams.get(PAGE_QUERY) === pagesQuantity}
+              onClick={() => handlePageChange(1)}>
+              &#9654;
+            </button>
           </div>
         </div>)
       }

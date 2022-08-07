@@ -2,11 +2,30 @@
   display: flex;
   flex-direction: column;
   width: 30%;
-  height: 600px;
-  padding: 15px;
+  height: 680px;
+  padding: 15px 15px 20px;
   border: 1px solid lightgray;
   color: #333;
   text-decoration: none;
+}
+
+@media (max-width: 1200px) {
+  .resultItem {
+    width: 32%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .resultItem {
+    width: 48%;
+  }
+}
+
+@media (max-width: 768px) {
+  .resultItem {
+    width: 100%;
+    max-width: 500px;
+  }
 }
 
 .resultItem:hover,
@@ -18,11 +37,12 @@
 }
 
 .imgContainer {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto 10px;
   border-radius: 50%;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .imgContainer img {

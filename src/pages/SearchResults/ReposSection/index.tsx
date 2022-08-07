@@ -48,7 +48,7 @@ export const ReposSection: React.FC<IReposSection> = ({ login, }) => {
           className={`link ${styles.allReposLink}`}
           onClick={() => window.open(`https://github.com/${login}?tab=repositories`, '_blank')}
         >
-          See all repos
+          Go to all repositories
         </div>
       }
     </div>

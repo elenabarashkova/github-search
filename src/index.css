@@ -42,5 +42,47 @@ header {
 }
 
 .container {
-  margin: 0 20px;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+@media (max-width: 1440px) {
+  .container {
+    margin: 0 30px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    margin: 0 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 0 30px;
+  }
+}
+
+.button {
+  background: transparent;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid #3a8aab;
+}
+
+.button:hover {
+  border-color: #6db5d2;
+}
+
+.button:focus,
+.button:active {
+  outline: 1px solid #3a8aab;
+  background: transparent;
+}
+
+.button[disabled] {
+  color: grey;
+  pointer-events: none;
+  border-color: grey;
 }

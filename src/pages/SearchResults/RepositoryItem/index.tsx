@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './style.module.css';
-import eye from './eye.svg';
+
+const { ReactComponent: Eye } = require("./eye.svg");
+const { ReactComponent: Fork } = require("./fork.svg");
 
 interface IRepositoryItem {
   name: string,
@@ -21,19 +23,29 @@ export const RepositoryItem: React.FC<IRepositoryItem> = ({
 }) => {
   return (
     <div
-      className={styles.repositoryItem}
+      className={`${styles.repositoryItem} button`}
       onClick={() => window.open(url, '_blank')}
     >
-      <div>{name}</div>
-      <div>{description}</div>
-      <div>
-        <span>Language:</span>
-        <span>{language}</span>
-        <img src={eye} alt=""/>
-        <span>{watchers}</span>
-        <span>Forks:</span>
-        <span>{forks}</span>
-      </div>
+      <div className={styles.title}>{name}</div>
+      <div className={styles.description}>{description}</div>
+      <div className={styles.shortInfo}>
+        {!!language && (
+          <div className={styles.language}>
+            <span>Language:</span>
+            <span>{language}</span>
+          </div>
+        )}
+        <div className={styles.icons}>
+          <div className={styles.icon}>
+            <Eye/>
+            <span>{watchers}</span>
+          </div>
+          <div className={styles.icon}>
+            <Fork />
+            <span>{forks}</span>
+          </div>
+        </div>
+        </div>
     </div>
   )
 }
