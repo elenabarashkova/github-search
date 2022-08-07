@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { getUserRepos } from '../../../service';
 import { ReposList } from '../ReposList';
-import { VISIBLE_REPOS_QUANTITY } from '../../../constants';
+import { VISIBLE_REPOS_QUANTITY } from '../constants';
 import styles from './style.module.css';
+import { Repository } from '../../../interfaces';
 
 interface IReposSection {
   login: string,
 }
 
 export const ReposSection: React.FC<IReposSection> = ({ login, }) => {
-  const [reposList, setReposList] = useState<Array<any>>([]);
+  const [reposList, setReposList] = useState<Array<Repository>>([]);
   const [isPending, setIsPending] = useState(true);
   const [isError, setIsError] = useState(false);
 

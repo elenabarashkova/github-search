@@ -1,3 +1,5 @@
+import { FetchSignal, GetUsersResult, Repository } from './interfaces';
+
 const TOKEN = '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';
 
 const HEADERS = {
@@ -10,7 +12,7 @@ const HEADERS = {
 
 export const QUANTITY_PER_PAGE = 6;
 
-export const getUsers = async (query: string, page: number, signal:  {signal: AbortSignal}): Promise<any> => {
+export const getUsers = async (query: string, page: number, signal: FetchSignal): Promise<GetUsersResult> => {
   while (true) {
     const response = await fetch(`https://api.github.com/search/users?q=${query}&per_page=${QUANTITY_PER_PAGE}&page=${page}`, {
       ...signal,
@@ -26,7 +28,7 @@ export const getUsers = async (query: string, page: number, signal:  {signal: Ab
   }
 }
 
-export const getUserRepos = async (username: string, signal:  {signal: AbortSignal}): Promise<Array<any>> => {
+export const getUserRepos = async (username: string, signal: FetchSignal): Promise<Array<Repository>> => {
   while (true) {
     const response = await fetch(`https://api.github.com/users/${username}/repos`, {
       ...signal,

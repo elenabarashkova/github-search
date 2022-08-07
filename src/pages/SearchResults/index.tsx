@@ -1,17 +1,18 @@
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Search } from './Search';
 import { useSearchParams } from 'react-router-dom';
-import { PAGE_QUERY, SEARCH_QUERY, INITIAL_PAGE_NUM } from '../../constants';
+import { PAGE_QUERY, SEARCH_QUERY, INITIAL_PAGE_NUM } from './constants';
 import { UsersList } from './UsersList';
 import { getUsers, QUANTITY_PER_PAGE } from '../../service';
 import { Spinner } from '../../components/Spinner';
 import styles from './style.module.css';
 import { PaginationButtons } from './PaginationButtons';
+import { User } from '../../interfaces';
 
 export const SearchResults: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isPending, setIsPending] = useState(false);
-  const [usersList, setUsersList] = useState<Array<any>>([]);
+  const [usersList, setUsersList] = useState<Array<User>>([]);
   const [usersCount, setUsersCount] = useState(0);
   const [isError, setIsError] = useState(false);
 
