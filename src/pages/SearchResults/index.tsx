@@ -6,6 +6,7 @@ import { UsersList } from './UsersList';
 import { getUsers, QUANTITY_PER_PAGE } from '../../service';
 import { Spinner } from '../../components/Spinner';
 import styles from './style.module.css';
+import { PaginationButtons } from './PaginationButtons';
 
 export const SearchResults: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -76,20 +77,10 @@ export const SearchResults: React.FC = () => {
               <div>Sorry, something went wrong. Please, try your search again.</div> :
               <UsersList users={usersList} />
           }
-          <div className={styles.paginationButtonsWrap}>
-            <button
-              className={`button ${styles.paginationButton}`}
-              disabled={searchParams.get(PAGE_QUERY) === INITIAL_PAGE_NUM}
-              onClick={() => handlePageChange(-1)}>
-              &#9664;
-            </button>
-            <button
-              className={`button ${styles.paginationButton}`}
-              disabled={searchParams.get(PAGE_QUERY) === pagesQuantity}
-              onClick={() => handlePageChange(1)}>
-              &#9654;
-            </button>
-          </div>
+          <PaginationButtons
+            onClick={handlePageChange}
+            isFirstPageCurrent={searchParams.get(PAGE_QUERY) === INITIAL_PAGE_NUM}
+            isLastPageCurrent={searchParams.get(PAGE_QUERY) === pagesQuantity} />
         </div>)
       }
     </>
