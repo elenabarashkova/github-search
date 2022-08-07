@@ -2,7 +2,7 @@
 
 ## The application is deployed and is available by this link:
 
-### [https://elenabarashkova.github.io/github-search/](https://elenabarashkova.github.io/github-search/)
+### [https://elenabarashkova-github-search.netlify.app/](https://elenabarashkova-github-search.netlify.app/)
 
 ## Commits can be viewed in repository:
 
