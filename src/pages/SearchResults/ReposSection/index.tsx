@@ -22,6 +22,7 @@ export const ReposSection: React.FC<IReposSection> = ({ login, }) => {
       setIsPending(false);
     } catch (e) {
       setIsError(true);
+      setIsPending(false);
     }
   }, [])
 

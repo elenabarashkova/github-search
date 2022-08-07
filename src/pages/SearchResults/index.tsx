@@ -45,6 +45,7 @@ export const SearchResults: React.FC = () => {
       setIsPending(false);
     } catch (e) {
       setIsError(true);
+      setIsPending(false);
     }
   }, []);
 
@@ -81,7 +82,7 @@ export const SearchResults: React.FC = () => {
           <PaginationButtons
             onClick={handlePageChange}
             isFirstPageCurrent={searchParams.get(PAGE_QUERY) === INITIAL_PAGE_NUM}
-            isLastPageCurrent={searchParams.get(PAGE_QUERY) === pagesQuantity} />
+            isLastPageCurrent={searchParams.get(PAGE_QUERY) === pagesQuantity || pagesQuantity === '0'} />
         </div>)
       }
     </>

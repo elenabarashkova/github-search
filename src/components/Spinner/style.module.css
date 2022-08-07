@@ -1,6 +1,6 @@
 .spinner {
   border: 7px solid #6db5d2;
-  animation: style_spin__giGLE 1s linear infinite;
+  animation: spin 1s linear infinite;
   border-top: 7px solid transparent;
   border-radius: 50%;
   width: 50px;
