@@ -2,18 +2,18 @@ import React from 'react';
 import styles from './style.module.css';
 import { ReposSection } from '../ReposSection';
 
-interface IResultItem {
+interface IUserCard {
   imgUrl: string,
   login: string,
   url: string
 }
 
-export const ResultItem: React.FC<IResultItem> = ({
+export const UserCard: React.FC<IUserCard> = ({
   imgUrl,
   login,
   url
 }) => (
-  <a href={url} target="_blank" rel="noopener noreferrer" className={styles.resultItem}>
+  <a href={url} target="_blank" rel="noopener noreferrer" className={styles.userCard}>
     <div className={styles.imgContainer}>
       <img src={imgUrl} alt={login} />
     </div>

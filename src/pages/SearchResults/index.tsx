@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'r
 import { Search } from './Search';
 import { useSearchParams } from 'react-router-dom';
 import { PAGE_QUERY, SEARCH_QUERY, INITIAL_PAGE_NUM } from '../../constants';
-import { ResultsList } from './ResultsList';
+import { UsersList } from './UsersList';
 import { getUsers, QUANTITY_PER_PAGE } from '../../service';
 import { Spinner } from '../../components/Spinner';
 import styles from './style.module.css';
@@ -74,7 +74,7 @@ export const SearchResults: React.FC = () => {
             <Spinner /> :
             isError ?
               <div>Sorry, something went wrong. Please, try your search again.</div> :
-              <ResultsList users={usersList} />
+              <UsersList users={usersList} />
           }
           <div className={styles.paginationButtonsWrap}>
             <button

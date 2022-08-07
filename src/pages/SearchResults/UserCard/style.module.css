@@ -1,4 +1,4 @@
-.resultItem {
+.userCard {
   display: flex;
   flex-direction: column;
   width: 30%;
@@ -10,27 +10,27 @@
 }
 
 @media (max-width: 1200px) {
-  .resultItem {
+  .userCard {
     width: 32%;
   }
 }
 
 @media (max-width: 1024px) {
-  .resultItem {
+  .userCard {
     width: 48%;
   }
 }
 
 @media (max-width: 768px) {
-  .resultItem {
+  .userCard {
     width: 100%;
     max-width: 500px;
   }
 }
 
-.resultItem:hover,
-.resultItem:active,
-.resultItem:focus {
+.userCard:hover,
+.userCard:active,
+.userCard:focus {
   border-color: #6db5d2;
   color: #333;
   text-decoration: none;

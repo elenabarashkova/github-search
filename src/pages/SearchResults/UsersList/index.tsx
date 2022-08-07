@@ -1,16 +1,16 @@
 import React from 'react';
-import { ResultItem } from '../ResultItem';
+import { UserCard } from '../UserCard';
 import styles from './style.module.css';
 
-interface IResultsList {
+interface IUsersList {
   users: any
 }
 
-export const ResultsList: React.FC<IResultsList> = ({ users}) => (
-  <div className={styles.resultsList}>
+export const UsersList: React.FC<IUsersList> = ({ users}) => (
+  <div className={styles.usersList}>
     {users.length ?
       users.map(({avatar_url, login, html_url }: any) => (
-        <ResultItem
+        <UserCard
           key={login}
           login={login}
           imgUrl={avatar_url}
