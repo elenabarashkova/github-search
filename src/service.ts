@@ -1,11 +1,11 @@
 import { FetchSignal, GetUsersResult, Repository } from './interfaces';
 
-const TOKEN = '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';
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const HEADERS = {
   headers: {
     'User-Agent': 'request',
-    'Authorization': `token ${TOKEN}`,
+    'Authorization': `token ${API_KEY}`,
     'accept': 'application/vnd.github+json'
   }
 }
